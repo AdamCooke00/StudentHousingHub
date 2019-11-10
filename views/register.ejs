@@ -1,0 +1,45 @@
+<% include ./partials/header %> 
+	<div class="container center-align">
+		<h2>Create Your Account</h2>
+		<form action="/register" method="POST">
+
+			<div class="row">
+				<div class="input-field col s4 push-s2 m3 push-m3">
+					<i class="material-icons prefix">account_circle</i>
+					<label for="fName">First Name</label>
+					<input type="text" id="fName" class="validate" name="firstName" required>	
+				</div>
+			
+				<div class="input-field col s4 push-s2 m3 push-m3">
+					<i class="material-icons prefix">account_circle</i>
+					<label for="lName">Last Name</label>
+					<input type="text" id="lName" class="validate" name="lastName" required>	
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="input-field col s8 m6 push-s2 push-m3">
+					<i class="material-icons prefix">mail_outline</i>
+					<label for="inputEmail">Email address</label>
+					<input type="email" id="inputEmail" class="validate" name="email" required>	
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="input-field col s8 m6 push-s2 push-m3">
+					<i class="material-icons prefix">lock_outline</i>
+					<label for="inputPassword">Password</label>
+					<input type="password" id="inputPassword" class="validate" name="password" required>	
+				</div>
+			</div>
+
+			<!-- Add Phone Number Input -->
+
+			<button class="btn btn-large" type="submit">Register</button>
+			<p style="padding: 20px;">SHH. 2019</p>
+		</form>
+	</div>
+	
+   
+
+<% include ./partials/footer %> 

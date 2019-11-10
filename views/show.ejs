@@ -1,0 +1,111 @@
+<% include ./partials/header %> 
+<div class="container">
+    <h2 class="center-align"><%= house.address %></h2>
+
+    <div class="row">
+        <div class="col s12">
+            <a class="btn" href="/houses">Go Back</a>
+
+            <% if (currentUser && house.author.id.equals(currentUser._id)) { %>
+                <a class="btn yellow darken-2" href="/houses/<%= house._id %>/edit">Edit</a>
+                <form style="display: inline;"
+                action="/houses/<%= house._id%>?_method=DELETE" method="POST">
+                    <button class="btn red">Delete</button>
+                </form>
+            <% } %>
+        </div>
+    
+        <div class="col s12 m6">
+            <div class="slider">
+                <ul class="slides">
+                <% for(var i=0; i < house.image.length; i++ ) { %>
+                    <li>
+                        <img class="materialboxed" src="<%= house.image[i].url %>">
+                    </li>
+                <% } %>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col s12 m6">
+            <div id="map"></div>
+        </div>
+       <% console.log(JSON.stringify(house)); %>   
+    </div>
+
+    <div class="row">
+        <div class="col s12 m9" style="border: 1px black solid;">
+            <div class="container">
+                <h5 class="center-align"></h5>
+
+                <div class="row">
+                    <div class="col s6">
+                        <p><strong>Beds</strong>: <%= house.bedrooms %> </p>
+                        <p><strong>Baths</strong>: <%= house.bathrooms %> </p>
+                        <p><strong>Utilities</strong>: <%= house.utilities %> </p>
+                        <p><strong>Parking</strong>: <%= house.parking %> </p>
+                    </div>
+                    <div class="col s6">
+                        <p><strong>Rent</strong>: <%= house.monthRent %> </p>                    
+                        <p><strong>Laundry</strong>: <%= house.laundry %> </p>                    
+                        <p><strong>Air Conditioning</strong>: <%= house.ac %> </p>                    
+                        <p><strong>Heating</strong>: <%= house.heating %> </p>                    
+                    </div>
+                </div>
+
+                <hr>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et minima labore dolores. Rem, deleniti corrupti totam quasi nisi aperiam ullam! Nam!</p>
+
+            </div>
+        </div>
+
+        <div class="col s12 m3">
+            <div class="container">
+                <h5>Contact Info</h5>
+                <p><strong>Name: </strong><%= house.author.firstName %> <%= house.author.lastName %></p>
+                <p><strong>Email: </strong><%= house.author.email %></p>
+                <p><strong>Phone: </strong><%= house.author.email %></p>
+            </div>
+        </div>
+        
+    </div>
+    
+</div>
+
+<script>
+  function initMap() {
+    var lat = <%= house.lat %>;
+    var lng = <%= house.lng %>;
+    var center = {lat: lat, lng: lng };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 15,
+        center: center,
+        scrollwheel: false,
+        zoomControl: true,
+        mapTypeId: "roadmap",
+        streetViewControl: false,
+        fullscreenControl: false,
+        mapTypeControl: false
+    });
+
+    var contentString = `
+      <strong><%= house.address %><br />
+      <%= house.rent %></strong>
+      <p><%= house.bedrooms %></p>
+    `
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    var marker = new google.maps.Marker({
+        position: center,
+        map: map
+    });
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+  }
+</script> 
+
+<script src="GOOGLE_API"
+    async defer></script> //NEEDS TO BE PUT IN IF U WISH IT TO WORK
+<% include ./partials/footer %> 

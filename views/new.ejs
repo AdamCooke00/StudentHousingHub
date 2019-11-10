@@ -1,0 +1,132 @@
+<% include ./partials/header %>
+<div class="container">
+
+<h1 class="center-align">Lease Your Property</h1>
+
+  <form class="" action="/houses" method="POST" enctype="multipart/form-data">
+    <div class="row">
+  
+      <div class="input-field col s9">
+        <input type="text" class="validate" id="autocomplete"  placeholder="123 Default St." name="house[address]" required>
+        <label for="autocomplete">Address</label>
+      </div>
+
+      <div class="input-field col s3">
+        <input type="text" id="unit" placeholder="B" name="house[unit]">
+        <label for="unit">Unit (Optional)</label>
+      </div>
+
+      <div class="file-field input-field col s12">
+        <div class="btn">
+          <span>File</span>
+          <input type="file"  name="image" accept="image/*" multiple required>
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text" placeholder="Upload one or more image(s) (7 MAX)">
+        </div>
+      </div>
+
+      <div class="input-field col s6">
+        <input type="number" min="1" step="1" class="validate" id="beds"  placeholder="5" name="house[bedrooms]" required>
+        <label for="beds">Bedrooms</label>
+      </div>
+      <div class="input-field col s6">
+        <input type="number" min="0.5" step="0.5" class="validate" id="baths"  placeholder="1.5" name="house[bathrooms]" required>
+        <label for="baths">Bathrooms</label>
+      </div>
+      
+      <div class="input-field col s6">
+        <input type="number" min="1" step="1" class="validate" id="rent"  placeholder="3200" name="house[monthRent]" required>
+        <label for="rent">Monthly Rent</label>
+      </div>
+
+      <div class="input-field col s6">
+        <input type="number" class="validate" id="rpp" readonly value="">
+        <label for="rpp">Rent per Bedroom</label>        
+      </div>
+
+      <div class="input-field col s12 l6">
+          <select name="house[utilities]" required>
+            <option value="" disabled selected>Choose your option</option>
+            <option value="included">Included</option>
+            <option value="not included">Not Included</option>
+          </select>
+          <label>Utilities</label>
+      </div>
+
+      <div class="input-field col s12 l6">
+          <select name="house[parking]" required>
+            <option value="0" disabled selected>Choose your option</option>
+            <option value="available">Available</option>
+            <option value="none">None</option>
+          </select>
+          <label>Parking Availability</label>
+      </div>
+
+      <div class="input-field col s12 l6">
+          <select name="house[laundry]" required>
+            <option value="0" disabled selected>Choose your option</option>
+            <option value="on-site">On-Site</option>
+            <option value="none">None</option>
+          </select>
+          <label>Laundry Availability</label>
+      </div>
+
+      <div class="input-field col s12 l6">
+          <select name="house[ac]" required>
+            <option value="0" disabled selected>Choose your option</option>
+            <option value="on-site">On-Site</option>
+            <option value="none">None</option>
+          </select>
+          <label>Air Conditioning</label>
+      </div>
+
+      <div class="input-field col s12">
+          <select name="house[heating]" required>
+            <option value="0" disabled selected>Choose your option</option>
+            <option value="available">Available</option>
+            <option value="none">None</option>
+          </select>
+          <label>Heating</label>
+      </div>
+
+      <a href="/houses" class="btn col s5 left">Go Back</a>
+      <button class="btn waves-effect waves-light col s5 right" type="submit">Submit
+        <i class="material-icons right">send</i>
+      </button>
+        
+    </div>
+  </form>
+
+</div>
+
+<script>
+var autocomplete;
+
+function initAutocomplete() {
+
+  var cityBounds = new google.maps.LatLngBounds(
+   new google.maps.LatLng(44.196485, -76.624636),
+   new google.maps.LatLng(44.283914, -76.429420));
+
+  var options = {
+    bounds: cityBounds,
+    strictBounds: true,
+    types: ['address'],
+    componentRestrictions: {country: 'can'}
+  };
+  // Create the autocomplete object, restricting the search predictions to
+  // geographical location types.
+  autocomplete = new google.maps.places.Autocomplete(
+      document.getElementById('autocomplete'), options);
+
+  // Avoid paying for data that you don't need by restricting the set of
+  // place fields that are returned to just the address components.
+  autocomplete.setFields(['address_component']);
+}
+</script>
+
+
+<script src="GOOGLE_API" 
+        async defer></script> //NEEDS TO BE PUT IN IF U WISH IT TO WORK
+<% include ./partials/footer %>

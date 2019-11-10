@@ -1,0 +1,94 @@
+<% include ./partials/header %>
+<div class="container">
+
+<h1 class="center-align">Edit <%= house.address %> </h1>
+<form action="/houses/<%= house._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+  <div class="row">
+
+    <div class="input-field col s12">
+      <input type="text" class="validate" id="autocomplete"  value="<%= house.address %>" name="house[address]" required>
+      <label for="autocomplete">Address</label>
+    </div>
+
+    <div class="input-field col s12">
+      <input type="number" min="1" step="1" class="validate" value="<%= house.bedrooms %>" name="house[bedrooms]" required>
+      <label>Bedrooms</label>
+    </div>
+
+    <div class="input-field col s6">
+      <input type="text" value="<%= house.image %>" readonly>
+      <label>Current Image(s):</label>
+    </div>
+
+    <% if (house.image.length <7) { %>
+    <div class="file-field input-field col s6">
+      <div class="btn">
+        <span>File</span>
+        <input type="file" name="image" accept="image/*" multiple>
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text" placeholder="Upload Another Image (<%= 7-house.image.length %> more MAX )">
+      </div>
+    </div>
+    <% } else { %>
+    <div class="input-field col s6">You have reached max images on this house. You may want to delete an image to make room for another.</div>
+    <% } %>
+
+    <div class="input-field col s12">
+      <input type="number" min="0.01" step="0.01" class="validate" id="rent"  value="<%= house.rent %>" name="house[rent]" required>
+      <label for="rent">Total Monthy Rent</label>
+    </div>
+
+    <div class="input-field col s12 l6">
+      <select name="house[utilities]" required>
+        <option value="" disabled selected>Choose your option</option>
+        <option value="included">Included</option>
+        <option value="not included">Not Included</option>
+      </select>
+      <label>Utilities</label>
+    </div>
+
+    <div class="input-field col s12 l6">
+      <select name="house[parking]" id="ddlView" required>
+        <option value="0" disabled selected>Choose your option</option>
+        <option value="available">Available</option>
+        <option value="not available">Not Available</option>
+      </select>
+      <label>Parking Availability</label>
+    </div>
+
+    <a href="/houses" class="btn col s5 left">Go Back</a>
+    <button class="btn waves-effect waves-light col s5 right" type="submit">Submit
+      <i class="material-icons right">send</i>
+    </button>
+  </div>
+</form>
+
+<script>
+var autocomplete;
+
+function initAutocomplete() {
+
+  var cityBounds = new google.maps.LatLngBounds(
+   new google.maps.LatLng(44.196485, -76.624636),
+   new google.maps.LatLng(44.283914, -76.429420));
+
+  var options = {
+    bounds: cityBounds,
+    strictBounds: true,
+    types: ['address'],
+    componentRestrictions: {country: 'can'}
+  };
+  // Create the autocomplete object, restricting the search predictions to
+  // geographical location types.
+  autocomplete = new google.maps.places.Autocomplete(
+      document.getElementById('autocomplete'), options);
+
+  // Avoid paying for data that you don't need by restricting the set of
+  // place fields that are returned to just the address components.
+  autocomplete.setFields(['address_component']);
+}
+</script> 
+<script src="GOOGLE_API" //NEEDS TO BE PUT IN IF U WISH IT TO WORK
+        async defer></script>
+<% include ./partials/footer %>

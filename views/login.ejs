@@ -1,0 +1,29 @@
+<% include ./partials/header %> 
+<div class="container center-align">
+		<h2 class="">Login</h1>
+		<form action="/login" method="POST">
+
+			<div class="row">
+				<div class="input-field col s8 m6 push-s2 push-m3">
+					<i class="material-icons prefix">mail_outline</i>
+					<input id="email" type="email" class="validate" name="email" required>	
+					<label for="email">Email Address</label>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="input-field col s8 m6 push-s2 push-m3">
+					<i class="material-icons prefix">lock_outline</i>
+					<input id="password" type="password" class="validate" name="password" required>
+					<label for="password">Password</label>
+					<button class="btn btn-large" type="submit">Sign in</button>
+				</div>
+			</div>
+
+			<div class="row">
+				<p class=" col s8 m6 push-s2 push-m3"><a href="/register">Don't have an account? Register Now!</a></p>
+			</div>			
+   		</form>
+</div>
+	
+<% include ./partials/footer %> 

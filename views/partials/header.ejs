@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Student Housing Hub</title>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
+</head>
+<body>
+    
+<header>
+
+	<% if(currentUser){ %>
+		<ul id="dropdown1" class="dropdown-content">
+			<li><a href="/users/<%=currentUser.id%>">My Profile</a></li>
+		</ul>
+	<% } %> 
+
+	<ul class="sidenav" id="mobile-demo">
+		<li><a href="/houses">Rental Properties</a></li>
+				<% if (!currentUser) { %>
+					<li><a class="waves-effect waves-light btn" href="/login">Login</a></li>
+					<li><a class="waves-effect waves-light btn" href="/register">Sign Up</a></li>
+				<% } else { %>
+					<li class="no-padding">
+						<ul class="collapsible collapsible-accordion">
+						<li>
+							<a class="collapsible-header teal">Signed in using <%= currentUser.email %><i class="material-icons">arrow_drop_down</i></a>
+							<div class="collapsible-body">
+							<ul>
+								<li><a href="/users/<%=currentUser.id%>">My Profile</a></li>
+							</ul>
+							</div>
+						</li>
+						</ul>
+					</li>
+					<li><a class="waves-effect waves-light yellow" href="/logout">Logout</a><li>		
+				<% } %>
+  	</ul>	 
+	
+	<nav class="red">
+		<div class="nav-wrapper">
+			<div class="container">
+				<a href="/" class="brand-logo">Student Housing Hub</a>
+				<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+				<ul id="nav-mobile" class="right hide-on-med-and-down">
+					<li><a href="/houses">Rental Properties</a></li>
+
+					<% if (!currentUser) { %>
+						<li><a class="waves-effect waves-light btn" href="/login">Login</a></li>
+						<li><a class="waves-effect waves-light btn" href="/register">Sign Up</a></li>
+					<% } else { %>
+						<li><a class="waves-effect waves-light btn dropdown-trigger" data-target="dropdown1">Signed in using <%= currentUser.email %><i class="material-icons right">arrow_drop_down</i></a></li>
+						<li><a class="waves-effect waves-light btn" href="/logout">Logout</a></li>		
+					<% } %>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+</header>
+<main>
+
+
+
+
+    
